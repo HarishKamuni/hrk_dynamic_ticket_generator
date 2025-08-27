@@ -1,5 +1,6 @@
 import React from 'react';
 import TicketForm from './components/TicketForm';
+import TicketDisplay from './components/TicketDisplay';
 
 const App = () => {
   return (
@@ -13,7 +14,8 @@ const App = () => {
       {/* Grid pattern overlay */}
       <div className="absolute inset-0"></div>
       <div className="relative z-10">
-        <TicketForm />
+        {/* <TicketForm /> */}
+        <TicketDisplay />
       </div>
     </div>
   );
