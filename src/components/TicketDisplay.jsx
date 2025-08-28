@@ -89,6 +89,7 @@ const TicketDisplay = () => {
               </div>
             </div>
             {/* Ticket Body */}
+            {/* break */}
           </div>
         </div>
       </div>
