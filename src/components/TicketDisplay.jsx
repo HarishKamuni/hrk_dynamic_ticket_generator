@@ -3,6 +3,8 @@ import {
   Calendar,
   Code2,
   Download,
+  Github,
+  Mail,
   MapPin,
   Printer,
   TimerIcon,
@@ -89,7 +91,46 @@ const TicketDisplay = () => {
               </div>
             </div>
             {/* Ticket Body */}
-            {/* break */}
+            <div className="p-8">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
+                <div className="flex items-center mb-6 md:mb-0">
+                  <div className="mr-6">
+                    {/* conditional rendering */}
+                    <img
+                      src=""
+                      className="w-20 h-20 rounded-full object-cover border-4 border-gray-200"
+                      crossOrigin="anonymous"
+                    />
+                    {/* Else */}
+                    <div
+                      className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500
+                     to-pink-500 flex items-center justify-center text-white text-2xl font-bold"
+                    ></div>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-black text-gray-900 mb-2">
+                      Full Name
+                    </h2>
+                    <div className="space-y-1">
+                      <div className="flex items-center text-gray-600">
+                        <Mail className="w-4 h-4 mr-2" />
+                        <span>Email</span>
+                      </div>
+                      <div className="flex items-center text-gray-600">
+                        <Github className="w-4 h-4 mr-2" />
+                        <span>Git Hub UserName</span>
+                      </div>
+                    </div>
+                    <div className="mt-3">
+                      <span className="bg-gradient-to-r from-orange-500 to-pink-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        General Admission
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                {/* QR Code */}
+              </div>
+            </div>
           </div>
         </div>
       </div>
