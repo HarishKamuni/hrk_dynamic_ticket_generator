@@ -7,6 +7,7 @@ import {
   Mail,
   MapPin,
   Printer,
+  QrCode,
   TimerIcon,
 } from 'lucide-react';
 import React from 'react';
@@ -129,9 +130,53 @@ const TicketDisplay = () => {
                   </div>
                 </div>
                 {/* QR Code */}
+                <div className="flex flex-col items-center">
+                  <div className="bg-gray-100 p-4 rounded-lg mb-2">
+                    <QrCode className="w-16 h-16 text-gray-400" />
+                  </div>
+                  <p className="text-xs text-gray-500 text-center">
+                    Scan for entry
+                  </p>
+                </div>
+              </div>
+              {/* Ticket Footer */}
+              <div className="mt-8 pt-6 border-t border-gray-200">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-600">
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      What's Included
+                    </h4>
+                    <ul className="space-y-1">
+                      <li>* 3-day conference access</li>
+                      <li>* All keynite sessions</li>
+                      <li>* Workshop Participation</li>
+                      <li>* Networking Events</li>
+                      <li>* Conference Material</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      Important Information
+                    </h4>
+                    <ul className="space-y-1">
+                      <li>* Please bring this ticket</li>
+                      <li>* Doors open at 8:30 AM</li>
+                      <li>* Photo ID required for entry</li>
+                      <li>* No refunds aftre March 1st</li>
+                      <li>* Visit codingconf.com for updates</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+        {/* Success Message */}
+        <div className="text-center mt-8">
+          <p className="text-white text-lg mb-2">
+            Your ticket has been generated successfully
+          </p>
+          <p className='text-gray-300'>save this ticket and bring it to the conference. See you there!</p>
         </div>
       </div>
     </div>
