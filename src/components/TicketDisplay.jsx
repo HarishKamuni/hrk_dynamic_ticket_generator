@@ -1,3 +1,4 @@
+import { toPng } from 'html-to-image';
 import {
   ArrowLeft,
   Calendar,
@@ -12,22 +13,54 @@ import {
 } from 'lucide-react';
 import React from 'react';
 
-const TicketDisplay = () => {
+const TicketDisplay = ({ ticketData, onBack }) => {
+  const ticketID = `CC2025-${Math.random()
+    .toString(26)
+    .substr(2, 9)
+    .toUpperCase()}`;
+  console.log(ticketData);
+  const handlePrint = () => {
+    window.print();
+  };
+  const handleDownload = async () => {
+    const ticketElement = document.getElementById('conference-ticket');
+    if (!ticketElement) return;
+    try {
+      const dataUrl = await toPng(ticketElement, { quality: 0.95 });
+      const link = document.createElement('a');
+      link.href = dataUrl;
+
+      link.download = `Coding-Conference-2025-ticket ${ticketData.fullName
+        .replace(/\s+/g, '-')
+        .toLowerCase()}.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild();
+    } catch (error) {
+      console.error('Something Went wrong', error);
+    }
+  };
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-4xl">
         {/* Header with Back Button */}
         <div className="flex items-center justify-between mb-8">
-          <button className="flex items-center text-white hover:text-orange-400 transition-all duration-200">
+          <button
+            className="flex items-center text-white hover:text-orange-400 transition-all duration-200"
+            onClick={onBack}
+          >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back To Form
           </button>
           <div className="flex space-x-4">
             <button className="flex items-center bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-200">
-              <Printer className="w-4 h-4 mr-2" />
+              <Printer className="w-4 h-4 mr-2" onClick={handlePrint} />
               Print
             </button>
-            <button className="flex items-center bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-200">
+            <button
+              className="flex items-center bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-all duration-200"
+              onClick={handleDownload}
+            >
               <Download className="w-4 h-4 mr-2" />
               Download
             </button>
@@ -61,7 +94,7 @@ const TicketDisplay = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-gray-300 text-sm">Ticket ID</p>
-                    <p className="font-mono text-sm">Ticket Number</p>
+                    <p className="font-mono text-sm">{ticketID}</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -97,29 +130,31 @@ const TicketDisplay = () => {
                 <div className="flex items-center mb-6 md:mb-0">
                   <div className="mr-6">
                     {/* conditional rendering */}
-                    <img
-                      src=""
-                      className="w-20 h-20 rounded-full object-cover border-4 border-gray-200"
-                      crossOrigin="anonymous"
-                    />
-                    {/* Else */}
-                    <div
-                      className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500
+                    {ticketData.avatar ? (
+                      <img
+                        src={ticketData.avatar}
+                        className="w-20 h-20 rounded-full object-cover border-4 border-gray-200"
+                        crossOrigin="anonymous"
+                      />
+                    ) : (
+                      <div
+                        className="w-20 h-20 rounded-full bg-gradient-to-r from-purple-500
                      to-pink-500 flex items-center justify-center text-white text-2xl font-bold"
-                    ></div>
+                      ></div>
+                    )}
                   </div>
                   <div>
                     <h2 className="text-2xl font-black text-gray-900 mb-2">
-                      Full Name
+                      {ticketData.fullName}
                     </h2>
                     <div className="space-y-1">
                       <div className="flex items-center text-gray-600">
                         <Mail className="w-4 h-4 mr-2" />
-                        <span>Email</span>
+                        <span>{ticketData.email}</span>
                       </div>
                       <div className="flex items-center text-gray-600">
                         <Github className="w-4 h-4 mr-2" />
-                        <span>Git Hub UserName</span>
+                        <span>{ticketData.githubUsername}</span>
                       </div>
                     </div>
                     <div className="mt-3">
@@ -176,7 +211,9 @@ const TicketDisplay = () => {
           <p className="text-white text-lg mb-2">
             Your ticket has been generated successfully
           </p>
-          <p className='text-gray-300'>save this ticket and bring it to the conference. See you there!</p>
+          <p className="text-gray-300">
+            save this ticket and bring it to the conference. See you there!
+          </p>
         </div>
       </div>
     </div>

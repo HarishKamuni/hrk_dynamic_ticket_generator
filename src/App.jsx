@@ -10,6 +10,11 @@ const App = () => {
     setTicketData(data);
     setShowTicket(true);
   };
+  console.log(ticketData);
+  const handleBackToForm = () => {
+    setShowTicket(false);
+    setTicketData(null);
+  };
   return (
     <div className="min-h-screen bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
       {/* Background */}
@@ -22,7 +27,7 @@ const App = () => {
       <div className="absolute inset-0"></div>
       <div className="relative z-10">
         {showTicket ? (
-          <TicketDisplay />
+          <TicketDisplay ticketData={ticketData} onBack={handleBackToForm} />
         ) : (
           <TicketForm onGenerateTicket={handleGenerateTicket} />
         )}
